@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Talker - Speech Development Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Little Talker</h1>
+        <p>Speech Development Tracker</p>
+    </header>
+
+    <div class="container">
+        
+        <div id="welcome" class="welcome-card card">
+            <h2 class="text-center">Welcome to Little Talker!</h2>
+            <p class="text-center mb-2">Track your child's speech development and get personalized strategies to help them learn new words.</p>
+            <button id="getStartedBtn">Get Started</button>
+        </div>
+
+        
+        <div id="setup" class="setup-card card">
+            <h2>Let's set up your tracker</h2>
+            <p class="mb-2">This information helps personalize your experience and is stored only on your device.</p>
+
+            <div class="form-row">
+                <label for="childName">Child's Name (optional)</label>
+                <input type="text" id="childName" placeholder="Enter name">
+            </div>
+
+            <div class="form-row">
+                <label for="childBirthdate">Child's Birth Date</label>
+                <input type="date" id="childBirthdate">
+            </div>
+
+            <button id="saveSetupBtn">Save and Continue</button>
+        </div>
+
+        
+        <div id="ageBanner"></div>
+
+        
+        <div id="mainContent" class="hidden">
+            
+            <div id="dashboardTab" class="tab-content active">
+                <div class="card progress-card">
+                    <h2>Speech Progress</h2>
+                    <p id="currentWords">Current vocabulary: <strong>0 words</strong></p>
+
+                    <div class="progress-container">
+                        <div id="progressBar" class="progress-bar"></div>
+                    </div>
+
+                    <p id="progressText">Just getting started!</p>
+
+                    <div class="milestone-container">
+                        <div class="milestone-track"></div>
+                        
+                    </div>
+                </div>
+
+                <div class="word-lists">
+                    <div id="masteredWords" class="word-list">
+                        <h3>Mastered <span id="masteredCount" class="word-count">0</span></h3>
+                        <div id="masteredWordsContainer"></div>
+                    </div>
+
+                    <div id="learningWords" class="word-list">
+                        <h3>Learning <span id="learningCount" class="word-count">0</span></h3>
+                        <div id="learningWordsContainer"></div>
+                    </div>
+                </div>
+
+                <button id="showAddWordBtn" class="mt-2">Add New Word</button>
+            </div>
+
+            <div id="wordListTab" class="tab-content">
+                <div class="card">
+                    <h2>Word Lists</h2>
+                    <p>Track all words your child is learning or has mastered.</p>
+
+                    <div class="word-lists">
+                        <div id="nextUpWords" class="word-list">
+                            <h3>Next Up <span id="nextUpCount" class="word-count">0</span></h3>
+                            <div id="nextUpWordsContainer"></div>
+                        </div>
+                    </div>
+
+                    <button id="showAddWordListBtn">Add New Word</button>
+                </div>
+            </div>
+
+            <div id="resourcesTab" class="tab-content">
+                <div class="card">
+                    <h2>Teaching Strategies</h2>
+                    <p class="mb-2">Research-based strategies to help introduce new words.</p>
+
+                    <div id="resourcesContainer">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div id="settingsTab" class="tab-content">
+                <div class="card">
+                    <h2>Settings</h2>
+
+                    <div class="form-row">
+                        <label for="updateName">Child's Name</label>
+                        <input type="text" id="updateName">
+                    </div>
+
+                    <div class="form-row">
+                        <label for="updateBirthdate">Child's Birth Date</label>
+                        <input type="date" id="updateBirthdate">
+                    </div>
+
+                    <button id="updateSettingsBtn">Update Settings</button>
+                    <button id="resetAppBtn" style="background-color: #dc3545; margin-top: 1rem;">Reset App Data</button>
+                </div>
+            </div>
+        </div>
+
+        
+        <div id="addWordForm" class="card">
+            <h2>Add New Word</h2>
+
+            <div class="form-row">
+                <label for="newWord">Word</label>
+                <input type="text" id="newWord" placeholder="Enter a word">
+            </div>
+
+            <div class="form-row">
+                <label>Category</label>
+                <div class="word-category">
+                    <div class="category-tag" data-category="nouns">Nouns</div>
+                    <div class="category-tag" data-category="verbs">Verbs</div>
+                    <div class="category-tag" data-category="adjectives">Adjectives</div>
+                    <div class="category-tag" data-category="social">Social Words</div>
+                    <div class="category-tag" data-category="other">Other</div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <label for="wordStatus">Status</label>
+                <select id="wordStatus">
+                    <option value="nextUp">Next Up</option>
+                    <option value="learning">Currently Learning</option>
+                    <option value="mastered">Mastered</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label for="teachingNotes">Teaching Notes (Optional)</label>
+                <input type="text" id="teachingNotes" placeholder="Ideas for teaching this word">
+            </div>
+
+            <button id="saveWordBtn">Save Word</button>
+            <button id="cancelAddWordBtn" style="background-color: #6c757d; margin-top: 0.5rem;">Cancel</button>
+        </div>
+
+        
+        <div id="wordDetailModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 id="wordDetailTitle"></h2>
+                <p id="wordDetailCategory"></p>
+                <p id="wordDetailStatus"></p>
+                <p id="wordDetailNotes"></p>
+
+                <div class="resource-card mt-2">
+                    <div class="resource-title">How to teach this word</div>
+                    <div id="wordTeachingTips"></div>
+                </div>
+
+                <button id="editWordBtn" class="mt-2">Edit Word</button>
+                <button id="deleteWordBtn" style="background-color: #dc3545; margin-top: 0.5rem;">Delete Word</button>
+            </div>
+        </div>
+
+        
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-tab="dashboardTab">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-tab" data-tab="wordListTab">
+                <i class="fas fa-list"></i>
+                <span>Words</span>
+            </div>
+            <div class="nav-tab" data-tab="resourcesTab">
+                <i class="fas fa-book"></i>
+                <span>Resources</span>
+            </div>
+            <div class="nav-tab" data-tab="settingsTab">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
